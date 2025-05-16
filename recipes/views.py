@@ -12,8 +12,8 @@ def home(request):
 
 
 def recipe(request, id):
-    ctx ={
+    return render (request, 'recipes/pages/recipe-view.html', context= {
         'recipe': make_recipe(),
-    }
-    return render (request, 'recipes/pages/recipe-view.html', ctx)
+        'is_detail_page': True,
+    })
 
