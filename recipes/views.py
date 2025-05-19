@@ -6,7 +6,7 @@ from .models import Recipe
 # Create your views here.
 
 def home(request):
-    recipes = Recipe.objects.all().order_by('-id')
+    recipes = Recipe.objects.filter(ins_published=True).order_by('-id')
     ctx= {
         'recipes': recipes,
         #[make_recipe() for _ in range(10)],
@@ -14,12 +14,12 @@ def home(request):
     return render(request, 'recipes/pages/home.html', ctx)
 
 def category(request, category_id):
-    recipes = Recipe.objects.filter(category__id= category_id).order_by('-id')
+    recipes = Recipe.objects.filter(category__id= category_id, is_published= True).order_by('-id')
     ctx= {
         'recipes': recipes,
         #[make_recipe() for _ in range(10)],
     }   
-    return render(request, 'recipes/pages/home.html', ctx)
+    return render(request, 'recipes/pages/category.html', ctx)
 
 
 def recipe(request, id):
