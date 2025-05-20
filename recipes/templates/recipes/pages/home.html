@@ -3,9 +3,13 @@
 {% block title %}Home | {% endblock title %}
 
 {% block content %}
-    <div class="main-content main-content-list container">
-        {% for recipe in recipes %}
-            {% include 'recipes/partial/recipe.html' %}
-        {% endfor %}
-    </div>
+<div class="main-content main-content-list container">
+    {% for recipe in recipes %}
+        {% include 'recipes/partial/recipe.html' %}
+    {% empty %}
+        <div class="center m-y">
+            <h1>No recipes found here</h1>
+        </div>
+    {% endfor %}
+</div>
 {% endblock content %}    
