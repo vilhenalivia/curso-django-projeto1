@@ -82,7 +82,7 @@
     {% endif %}
 
     {% if is_detail_page is True %}
-        <div class="preparation_steps">
+        <div class="recipe.preparation_steps">
             {% if recipe.preparation_steps_is_html is True %}
                 {{ recipe.preparation_steps |safe }}
             {% else %}
