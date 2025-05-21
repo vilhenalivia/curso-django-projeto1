@@ -17,7 +17,7 @@ def category(request, category_id):
 
     ctx= {
         'recipes': recipes,
-        'title': f'{recipes.first().category.name} - Category',
+        'title': f'{recipes[0].category.name} - Category',
         #[make_recipe() for _ in range(10)],
     }   
     return render(request, 'recipes/pages/category.html', ctx)
@@ -25,7 +25,7 @@ def category(request, category_id):
 
 def recipe(request, id):
     recipe = get_object_or_404(Recipe.objects.filter(pk=id, is_published= True)) 
-    return render(request, 'recipes/pages/recipe_view.html', context= {
+    return render(request, 'recipes/pages/recipe-view.html', context= {
         'recipe': recipe,
         'is_detail_page': True,
     })
