@@ -11,20 +11,30 @@ class RescipeTestBase(TestCase):
     def make_category(self, name ='Category' ):
         return Category.objects.create(name=name)
     
-    def make_author(
-        self,
-        first_name='user',
-        last_name= 'name',
-        username= 'username',
-        password= '123456',
-        email='username@emai.com'     
-    ):
+    # def make_author(
+    #     self,
+    #     first_name='user',
+    #     last_name= 'name',
+    #     username= 'username',
+    #     password= '123456',
+    #     email='username@emai.com'     
+    # ):
+    #     return User.objects.create_user(
+    #         first_name=first_name,
+    #         last_name= last_name,
+    #         username= username,
+    #         password= password,
+    #         email=email
+    #     )
+    def make_author(self, **kwargs):
+        import uuid
+        unique_username = kwargs.get('username', f"username_{uuid.uuid4().hex}")
         return User.objects.create_user(
-            first_name=first_name,
-            last_name= last_name,
-            username= username,
-            password= password,
-            email=email
+            first_name=kwargs.get('first_name', 'user'),
+            last_name=kwargs.get('last_name', 'name'),
+            username=unique_username,
+            password=kwargs.get('password', '123456'),
+            email=kwargs.get('email', f"{unique_username}@email.com"),
         )
     
     def make_recipe(

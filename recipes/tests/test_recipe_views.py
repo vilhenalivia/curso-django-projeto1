@@ -1,9 +1,6 @@
-from django.test import TestCase
 from django.urls import resolve,reverse
 from recipes import views
-from recipes import models
-from recipes.models import Category, Recipe
-from django.contrib.auth.models import User
+from recipes.models import Recipe
 from .test_recipe_base import RescipeTestBase
 
 
@@ -40,6 +37,7 @@ class RecipeViewTest(RescipeTestBase):
         self.assertEqual(len(response_context_recipes), 1)
 
 
+
     # CATEGORY
     def test_recipe_category_view_function_is_correct(self):
         view = resolve(reverse('recipes:category', kwargs={'category_id': 1000}))
@@ -48,6 +46,7 @@ class RecipeViewTest(RescipeTestBase):
     def test_recipe_category_view_returns_404_if_no_recipes_found(self):
         response =self.client.get(reverse('recipes:category', kwargs={'category_id': 1000}))
         self.assertEqual(response.status_code, 404)
+
 
     # DETAIL
     def test_recipe_detail_view_function_is_correct(self):
@@ -58,3 +57,5 @@ class RecipeViewTest(RescipeTestBase):
         response = self.client.get(reverse('recipes:recipe', kwargs={'id': 1000}))
         self.assertEqual(response.status_code, 404)
 
+
+    
