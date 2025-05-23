@@ -5,20 +5,23 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 from utils.pagination import make_pagination
 import os
+from django.contrib import messages
 # Create your views here.
 
 PER_PAGES =  int(os.environ.get('PER_PAGE' , 6))
 
 def home(request):
     
+    # Query
     recipes = Recipe.objects.filter(is_published=True)
     
+    # Pagination
     page_object , pagination_range = make_pagination(request, recipes, PER_PAGES )
     
+
     ctx= {
         'recipes': page_object,
         'pagination_range' : pagination_range
-        #[make_recipe() for _ in range(10)],
     }
 
     return render(request, 'recipes/pages/home.html', ctx)
@@ -36,7 +39,6 @@ def category(request, category_id):
         #[make_recipe() for _ in range(10)],
     }   
     return render(request, 'recipes/pages/category.html', ctx)
-
 
 def recipe(request, id):
     recipe = get_object_or_404(Recipe.objects.filter(pk=id, is_published= True)) 
