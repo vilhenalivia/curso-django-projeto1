@@ -285,17 +285,58 @@
         .preparation_steps ul {
             margin: 2rem;
             padding: 0 2rem;
-        }   
 
+        } 
 
         .center {
             text-align: center ;
         }
 
         .m-x {
-            margin: 0 var(--spacing-gutter-medium)
+            margin: 0 var(--spacing-gutter-medium);
         }
 
         .m-y{
             margin:  var(--spacing-gutter-medium)
         }
+           
+
+        .pagination .pagination-content {
+            display: flex;
+            flex-flow: row wrap;
+            gap: 1rem 0.5rem;
+        }
+
+        .pagination-content .page-item {
+            background-color: var(--color-gray-3);
+            padding: 0.5rem 1rem;
+            border-radius: 0.4rem;
+            margin: 0 0.2rem;
+            transition: background 200ms;
+        }
+
+        .pagination-content .page-link {
+            text-decoration: none;
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            padding: 0.5rem 1rem;
+            border-radius: 0.4rem;
+            display: inline-block;
+            transition: background 200ms, color 200ms;
+        }
+
+        .pagination-content .page-link:hover,
+        .pagination-content .page-link:focus {
+            background-color: var(--color-primary-hover);
+            color: var(--color-white);
+        }
+
+        .pagination-content .page-current,
+        .pagination-content .page-link.page-current {
+            background-color: var(--color-primary-dark);
+            color: var(--color-white);
+            font-weight: bold;
+            cursor: default;
+        }
+
+        
