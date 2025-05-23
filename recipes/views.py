@@ -4,9 +4,10 @@ from .models import Recipe
 from django.db.models import Q
 from django.core.paginator import Paginator
 from utils.pagination import make_pagination
+import os
 # Create your views here.
 
-PER_PAGES =  4
+PER_PAGES =  int(os.environ.get('PER_PAGE' , 6))
 
 def home(request):
     
