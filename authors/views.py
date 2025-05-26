@@ -3,10 +3,15 @@ from .forms import RegisterForm
 
 # Create your views here.
 def register_view(request):
-    form = RegisterForm()
+    
+    if request.POST:
+        form = RegisterForm(request.POST)
+    else:
+        form = RegisterForm()
 
     # context
     ctx ={
         'form' : form,
     }
-    return render(request, 'authors/pages/register_view.html')
+    
+    return render(request, "authors/pages/register_view.html", ctx)

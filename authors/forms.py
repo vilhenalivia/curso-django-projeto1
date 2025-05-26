@@ -9,7 +9,7 @@ class RegisterForm(forms.ModelForm):
         fields = [
             'first_name', 
             'last_name',
-            'user_name',
+            'username',
             'email',
-            'passworld',
+            'password',
         ]
