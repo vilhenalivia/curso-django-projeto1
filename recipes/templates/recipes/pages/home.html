@@ -4,13 +4,8 @@
 
 <!-- MESSAGES -->
 {% block content %}
-{% if messages %}
-    <div class="main-content center container">
-        {% for message in messages %}
-            {{message}}
-        {% endfor %}
-    </div>
-{% endif %}
+
+{% include "recipes/partial/massage.html" %}
 
 <!--NOT FOUND TEXT -->
 <div class="main-content main-content-list container">

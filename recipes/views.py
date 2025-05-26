@@ -14,6 +14,8 @@ def home(request):
     
     # Query
     recipes = Recipe.objects.filter(is_published=True)
+
+    messages.success(request, "OLÀ")
     
     # Pagination
     page_object , pagination_range = make_pagination(request, recipes, PER_PAGES )
