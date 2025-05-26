@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 def add_attr(field, attr_name, attr_new_val):
     existing_attr = field.widget.attrs.get(attr_name, '')
@@ -63,3 +64,16 @@ class RegisterForm(forms.ModelForm):
         help_texts = {
             'email': 'Digite um email válido'
         }
+
+    def clean(self):
+        cleaned_data = self.cleaned_data  # ← sem parênteses!
+        password = cleaned_data.get('password')
+        password2 = cleaned_data.get('password2')
+
+        if password != password2:
+            raise forms.ValidationError({ 
+                'password': 'Password and Password2 must be equal', 
+                'password2': 'Password and Password2 must be equal'
+            })
+
+        return cleaned_data
