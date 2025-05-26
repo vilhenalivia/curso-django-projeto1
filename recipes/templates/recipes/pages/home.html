@@ -4,11 +4,11 @@
 
 <!-- MESSAGES -->
 {% block content %}
-    {% if messages %}
+{% if messages %}
     <div class="main-content center container">
         {% for message in messages %}
             {{message}}
-            {% endfor %}
+        {% endfor %}
     </div>
 {% endif %}
 
