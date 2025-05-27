@@ -26,6 +26,7 @@ def strong_password(password):
 
 
 class RegisterForm(forms.ModelForm):
+    #PlaceHolders
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         add_placeholder(self.fields['username'], 'Your username')
@@ -35,6 +36,8 @@ class RegisterForm(forms.ModelForm):
         add_placeholder(self.fields['password'], 'Type your password')
         add_placeholder(self.fields['password2'], 'Repeat your password')
         
+
+    # Reescrita 
     password = forms.CharField(
         required=True,
         widget=forms.PasswordInput(),
@@ -54,10 +57,23 @@ class RegisterForm(forms.ModelForm):
     password2 = forms.CharField(
         required=True,
         widget=forms.PasswordInput()
-
+        
     )
 
-    # METADADOS
+    username = forms.CharField(
+        required=True,
+        help_text= 'Username must have letters, numbers or one of those @.+-_.The length should be between 4 and 150 characters.',
+        error_messages={
+            'required': 'This field must not be empty',
+            'min_length': 'Username must have at least 4 characters',
+            'max_length' : 'Username must have less than 150 characters'
+        },
+        label = 'Username',
+        min_length= 4,
+        max_length= 150
+    )
+
+    # METADADOSs
     class Meta:
         model = User
         fields = [

@@ -26,6 +26,7 @@ class RecipeHomeViewTest(RescipeTestBase):
         self.assertIn('<h1>No recipes found here</h1>',response.content.decode('utf-8'))
 
     def test_recipe_home_is_paginated(self):
+        # Cria receita
         for i in range(8):
             kwargs = {'slug': f'r{i}', 'author_data': {'username': f'u{i}'}}
             self.make_recipe(**kwargs)
@@ -39,3 +40,7 @@ class RecipeHomeViewTest(RescipeTestBase):
             self.assertEqual(len(paginator.get_page(1)), 4)
             self.assertEqual(len(paginator.get_page(2)), 4)
             self.assertEqual(len(paginator.get_page(3)), 1)
+
+    def test_invalid_page_query_uses_page_one(self):
+        response = self.client.get(reverse('recipes:home') + '?page=1A' )
+        self.assertEqual(response.context['recipes'].number, 1)
