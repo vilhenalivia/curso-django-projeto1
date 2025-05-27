@@ -30,15 +30,14 @@ class RegisterForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         add_placeholder(self.fields['username'], 'Your username')
         add_placeholder(self.fields['email'], 'Your e-mail')
-        add_placeholder(self.fields['username'], 'Your username')
         add_placeholder(self.fields['first_name'], 'Ex.: Jonh')
         add_placeholder(self.fields['last_name'], 'Ex.: Doe')
+        add_placeholder(self.fields['password'], 'Type your password')
+        add_placeholder(self.fields['password2'], 'Repeat your password')
         
     password = forms.CharField(
         required=True,
-        widget=forms.PasswordInput(attrs={
-            'placeholder': 'Your password'
-        }),
+        widget=forms.PasswordInput(),
         error_messages={
             'required': 'Password must not be empty'
         },
@@ -47,15 +46,14 @@ class RegisterForm(forms.ModelForm):
             'one lowercase letter and one number. The length should be '
             'at least 8 characters.'
         ),
-        validators= [strong_password]
+        validators= [strong_password],
+        label= 'Password'
     )
 
 
     password2 = forms.CharField(
         required=True,
-        widget=forms.PasswordInput(attrs={
-            'placeholder': 'Repeat your password'
-        })
+        widget=forms.PasswordInput()
 
     )
 
@@ -79,7 +77,7 @@ class RegisterForm(forms.ModelForm):
         }
         
         help_texts = {
-            'email': 'Digite um email válido'
+            'email': 'The e-mail must be valid.'
         }
 
     def clean(self):
