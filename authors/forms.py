@@ -96,6 +96,15 @@ class RegisterForm(forms.ModelForm):
             'email': 'The e-mail must be valid.'
         }
 
+    def clean_email(self):
+        email = self.cleaned_data.get('email','')
+        exists = User.objects.filter(email = email).exists()
+
+        if exists:
+            raise ValidationError('User e-mail is already in use', code='invalid')
+        
+        return email
+
     def clean(self):
         cleaned_data = self.cleaned_data  # ← sem parênteses!
         password = cleaned_data.get('password')
