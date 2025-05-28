@@ -5,6 +5,7 @@ from .forms import RegisterForm, LoginForm
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from recipes.models import Recipe
 
 # Create your views here.
 def register_view(request):
@@ -85,4 +86,13 @@ def logout_view(request):
 
 @login_required(login_url='authors:login', redirect_field_name='next')
 def dashboard_view(request):
-    return render(request, 'authors/pages/dashboard.html')
+    recipes = Recipe.objects.filter(
+        is_published = False,
+        author= request.user,
+    )
+
+    ctx = {
+        'recipes' : recipes
+    }
+
+    return render(request, 'authors/pages/dashboard.html', ctx)

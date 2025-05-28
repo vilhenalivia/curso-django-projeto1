@@ -329,9 +329,10 @@ h1,h2,h3,h4,h5,h6{
 
 /* Forms */
 .form-content {
-  max-width: 64rem;
-  margin: 0 auto;
-  margin-bottom: var(--spacing-gutter-medium);
+    max-width: 64rem;
+    margin: 0 auto;
+    margin-bottom: var(--spacing-gutter-medium);
+
 }
 
 .form-content label,
@@ -436,6 +437,21 @@ h1,h2,h3,h4,h5,h6{
 .login-message {
     margin: 1rem;
 }
+
+.authors-dashboard-container{
+    max-width: 64rem;
+    text-align: left;
+    padding: 3rem;
+    margin: 0 auto;
+}
+
+.authors-dashboard-container h3,
+.authors-dashboard-container p,
+.authors-dashboard-container ul {
+    list-style-type: none;
+    margin: 1rem 0;
+}
+
 
         
 /*GENERICS*/
