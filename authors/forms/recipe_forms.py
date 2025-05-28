@@ -1,4 +1,5 @@
 
+from django import forms
 from recipes.models import Recipe
 from utils.django_forms import add_attr
 from collections import defaultdict
