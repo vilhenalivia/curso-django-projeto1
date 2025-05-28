@@ -66,13 +66,22 @@ h1,h2,h3,h4,h5,h6{
     font-family: var(--font-headings) ;
 }
 
-.container{
+img {
+    max-width: 100%;
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.container {
     max-width: 100rem;
     margin:0 auto;
     padding: var(--spacing-gutter-large)
 }
 
-.main-header-container{
+.main-header-container {
     background-color: var(--color-primary-dark);
 }
 
@@ -338,38 +347,44 @@ h1,h2,h3,h4,h5,h6{
 .form-content label,
 .form-content .help-text,
 .errorlist {
-  display: block;
-  margin: 0.5rem 0;
-  font-size: 1.4rem;
-  list-style-type: none;
+    display: block;
+    margin: 0.5rem 0;
+    font-size: 1.4rem;
+    list-style-type: none;
 }
 
 .errorlist {
-  color: var(--color-error-dark);
+    color: var(--color-error-dark);
 }
 
-.form-content input {
-  width: 100%;
-  padding: 1rem;
-  border-radius: 0.4rem;
-  border: 1px solid var(--color-primary-dark);
+.form-content input,
+.form-content textarea
+.form-content select {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 0.4rem;
+    border: 1px solid var(--color-primary-dark);
 }
 
 .form-content-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-  gap: calc(var(--spacing-gutter-medium) / 2) var(--spacing-gutter-medium);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: calc(var(--spacing-gutter-medium) / 2) var(--spacing-gutter-medium);
 }
 
 .form-content button {
-  padding: 1rem 2rem;
-  border: none;
-  background: var(--color-primary-dark);
-  color: var(--color-white);
+    padding: 1rem 2rem;
+    border: none;
+    background: var(--color-primary-dark);
+    color: var(--color-white);
 }
 
 .inline-form{
     display: inline;
+}
+
+.span-2 {
+    grid-column: span 2 ;
 }
 
 .plaintext-button{
@@ -438,7 +453,7 @@ h1,h2,h3,h4,h5,h6{
     margin: 1rem;
 }
 
-.authors-dashboard-container{
+.authors-dashboard-container {
     max-width: 64rem;
     text-align: left;
     padding: 3rem;
@@ -459,6 +474,9 @@ h1,h2,h3,h4,h5,h6{
     text-align: center ;
 }
 
+.left {
+    text-align: left;
+}
 .m-x {
     margin: 0 var(--spacing-gutter-medium);
 }
