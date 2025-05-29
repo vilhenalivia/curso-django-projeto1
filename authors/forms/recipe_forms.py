@@ -28,7 +28,7 @@ class AuthorRecipeForm(forms.ModelForm):
             'servings_unit': forms.Select(
                 choices=(
                     ('Porções', 'Porções'),
-                    ('Pedaços', 'Pedaçoes'),
+                    ('Pedaços', 'Pedaços'),
                     ('Pessoas','Pessoas'), 
                 )
             ),
@@ -48,11 +48,11 @@ class AuthorRecipeForm(forms.ModelForm):
         description = cleaned_data.get('description')
 
         if len(title) < 5:
-            self._errors['title'].append('Must have at least 5 characteres')
+            self.add_error['title'].append('Must have at least 5 characteres')
         
         if title == description:
-            self._errors['title'].append('Cannot be equal to description')
-            self._errors['description'].append('Cannot be equal to title')
+            self.add_error['title'].append('Cannot be equal to description')
+            self.add_error['description'].append('Cannot be equal to title')
 
 
         if self._errors:
@@ -61,7 +61,9 @@ class AuthorRecipeForm(forms.ModelForm):
         return super_clean
     
     def clean_preparation_time(self):
-        cleaned_data =  self.cleaned_data.get('preparation_time')
+        preparation_time =  self.cleaned_data.get('preparation_time')
 
-        if not is_positive_number(cleaned_data):
-            self._errors['preparation_time'].append('Must be a positive number') 
+        if not is_positive_number(preparation_time):
+            self.add_error( 'preparation_time', 'Must be a positive number') 
+        
+        return preparation_time

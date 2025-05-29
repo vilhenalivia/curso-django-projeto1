@@ -40,7 +40,15 @@ class Recipe(models.Model):
     # slug como titulo da receita 
     def save(self, *args, **kwargs):
         if not self.slug:
-            slug = f'{slugify(self.title)}'
+            base_slug = slugify(self.title)
+            slug = base_slug
+            counter = 1
+
+            # Garante unicidade
+            while Recipe.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f'{base_slug}-{counter}'
+                counter += 1
+
             self.slug = slug
 
         return super().save(*args, **kwargs)
