@@ -13,7 +13,7 @@
 
     <div class="recipe-title-container">
         <h2 class="recipe-title">
-            <a href="{% url 'recipes:recipe' id=recipe.id %}"">
+            <a href="{% url 'recipes:recipe' recipe.pk %}"">
                 {{recipe.title}}
             </a>
         </h2>

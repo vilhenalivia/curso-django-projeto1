@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 from utils.pagination import make_pagination
 import os
 from django.contrib import messages
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 # Create your views here.
 
@@ -91,10 +91,19 @@ class RecipeListViewSearch(RecipeListViewBase):
         })
         return ctx
 
-def recipe(request, id):
-    recipe = get_object_or_404(Recipe.objects.filter(pk=id, is_published= True)) 
-    return render(request, 'recipes/pages/recipe-view.html', context= {
-        'recipe': recipe,
-        'is_detail_page': True,
-    })
+class RecipeDetail(DetailView):
+    model = Recipe
+    context_object_name = 'recipe'
+    template_name = 'recipes/pages/recipe-view.html'
 
+    def get_queryset(self, *args, **kwargs):
+        qs =  super().get_queryset(*args, **kwargs)
+        return qs
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx.update({
+            'is_detail_page' : True
+        })
+        
+        return ctx
