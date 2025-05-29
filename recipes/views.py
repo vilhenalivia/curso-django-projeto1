@@ -7,6 +7,7 @@ from utils.pagination import make_pagination
 import os
 from django.contrib import messages
 from django.views.generic import ListView, DetailView
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -92,6 +93,8 @@ class RecipeListViewSearch(RecipeListViewBase):
         return ctx
 
 class RecipeDetail(DetailView):
+
+
     model = Recipe
     context_object_name = 'recipe'
     template_name = 'recipes/pages/recipe-view.html'
@@ -107,3 +110,15 @@ class RecipeDetail(DetailView):
         })
         
         return ctx
+    
+class RecipeListViewHomeApi(RecipeListViewBase):
+    template_name = 'recipes/pages/home.html'
+
+    def render_to_response(self, context, **response_kwargs):
+        recipes=  self.get_context_data()['recipes']
+        recipes_dict = recipes.object_list.values()
+        
+        return JsonResponse(
+            list(recipes_dict),
+            safe=False
+        )
