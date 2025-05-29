@@ -4,6 +4,7 @@ attrs==25.3.0
 certifi==2025.4.26
 coverage==7.8.1
 Django==5.2.1
+django-debug-toolbar==5.2.0
 Faker==37.3.0
 h11==0.16.0
 idna==3.10
