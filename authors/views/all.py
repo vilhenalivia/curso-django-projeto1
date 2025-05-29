@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.http import Http404, HttpResponseNotAllowed
 from django.shortcuts import redirect, render
-from .forms import RegisterForm, LoginForm
+from authors.forms import RegisterForm, LoginForm
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
