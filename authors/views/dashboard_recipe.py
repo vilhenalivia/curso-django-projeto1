@@ -8,15 +8,43 @@ from authors.forms.recipe_forms import AuthorRecipeForm
 from recipes.models import Recipe
 
 class DashboardRecipe():
-    def get(self, request, id):
-        recipe = Recipe.objects.filter(
-            is_published = False,
-            author= request.user,
-            pk=id,
-        ).first()
 
-        if not recipe:
-            raise Http404()
+    # Pega a receita
+    def get_recipe(self, id):
+        recipe = None
+
+        # Se receber um id
+        if id: 
+            recipe = Recipe.objects.filter(
+                is_published = False,
+                author= self.request.user,
+                pk=id,
+            ).first()
+
+            if not recipe:
+                raise Http404()
+            
+        return recipe
+
+    # Rendereriza a página
+    def render_recipe(self, form):
+        ctx  ={
+            'form' : form
+        }
+
+        return render(self.request, 'authors/pages/dashboard_recipe.html', ctx)
+
+    # GET
+    def get(self, *args, **kwargs):
+        # Pega uma recipe
+        recipe = self.get_recipe(kwargs.get(id))
+        form = AuthorRecipeForm(instance=recipe)
+        return self.render_recipe(form)     
+    
+    # POST
+    def post(self, request, id):
+        # Pega uma recipe
+        recipe = self.get_recipe(id)
 
         form = AuthorRecipeForm(data=request.POST or None, files=request.FILES or None ,instance=recipe)
 
@@ -28,9 +56,4 @@ class DashboardRecipe():
             messages.success(request, "Sua receita foi salva com sucesso!")
             return redirect(reverse('authors:dashboard_recipe_edit', args=(id,)))
 
-
-        ctx  ={
-            'form' : form
-        }
-
-        return render(request, 'authors/pages/dashboard_recipe.html', ctx)
+        return self.render_recipe(form)
