@@ -3,12 +3,16 @@ from django.http import Http404
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views import View
-
 from authors.forms.recipe_forms import AuthorRecipeForm
 from recipes.models import Recipe
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
+@method_decorator(
+    login_required(login_url='authors:login', redirect_field_name='next'),
+    name='dispatch'
+)
 class DashboardRecipe(View):
-
     # Pega a receita
     def get_recipe(self, id=None):
         recipe = None
@@ -34,6 +38,7 @@ class DashboardRecipe(View):
 
         return render(self.request, 'authors/pages/dashboard_recipe.html', ctx)
 
+    
     # GET
     def get(self, request, id=None):
         # Pega uma recipe
