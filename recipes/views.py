@@ -6,25 +6,41 @@ from django.core.paginator import Paginator
 from utils.pagination import make_pagination
 import os
 from django.contrib import messages
+from django.views.generic import ListView
+
 # Create your views here.
 
 PER_PAGES =  int(os.environ.get('PER_PAGE' , 6))
 
-def home(request):
-    
-    # Query
-    recipes = Recipe.objects.filter(is_published=True)
-    
-    # Pagination
-    page_object , pagination_range = make_pagination(request, recipes, PER_PAGES )
-    
-    # context
-    ctx= {
-        'recipes': page_object,
-        'pagination_range' : pagination_range
-    }
+class RecipeListViewBase(ListView):
+    model = Recipe
+    # Objeto
+    context_object_name = 'recipes'
+    # Ordena por padrão
+    ordering = ['-id']
+    # Nome do template
+    template_name = 'recipes/pages/home.html'
 
-    return render(request, 'recipes/pages/home.html', ctx)
+    # Manipulação de query
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+        qs = qs.filter(is_published= True)
+        return qs
+
+    # Manipulação de contexto
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        #Paginação
+        page_object , pagination_range = make_pagination(self.request, ctx.get('recipes'), PER_PAGES )
+        ctx.update (
+            { 'recipes' : page_object, 'pagination_range' : pagination_range}
+        )
+        return ctx
+
+class RecipeListViewHome(ListView):
+    template_name = 'recipes/pages/home.html'
+
+
 
 def category(request, category_id):
     recipes = get_list_or_404(Recipe.objects.filter(category__id= category_id, is_published= True).order_by('-id'))
