@@ -484,7 +484,11 @@ a {
 .m-y{
     margin:  var(--spacing-gutter-medium)
 }
-        
+      
+.hidden-text{
+    display: none;
+}
+
 @media (max-width: 600px){
     .main-content-list,
     .form-content-grid{
