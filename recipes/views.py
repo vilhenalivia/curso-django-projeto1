@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.views.generic import ListView, DetailView
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
-
+from tags.models import Tags
 # Create your views here.
 
 PER_PAGES =  int(os.environ.get('PER_PAGE' , 6))
@@ -28,6 +28,7 @@ class RecipeListViewBase(ListView):
         qs = super().get_queryset(*args, **kwargs)
         qs = qs.filter(is_published= True)
         qs.select_related('author', 'category')
+        qs.prefetch_related('tags')
         return qs
 
     # Manipulação de contexto
@@ -145,3 +146,27 @@ class RecipeDetailApi(DetailView):
             recipe_dict,
             safe=False
         )
+    
+class RecipeListViewTag(RecipeListViewBase):
+    template_name = 'recipes/pages/tag.html'
+
+    # Manipulação de query
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+        qs = qs.filter(tags__slug=self.kwargs.get('slug',  ''))
+        return qs
+    
+     # Manipulação de contexto
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        page_title = Tags.object.filter(tags__slug=self.kwargs.get('slug',  '')).first()
+
+        if not page_title:
+            page_title = 'No recipes found'
+
+        page_title = f'{page_title} - Tag '
+
+        ctx.update ({
+            'page_title': f'{page_title}|',
+        })
+        return ctx
