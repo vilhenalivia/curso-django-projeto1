@@ -10,6 +10,7 @@ from django.views.generic import ListView, DetailView
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
 from tags.models import Tags
+from django.utils import translation
 # Create your views here.
 
 PER_PAGES =  int(os.environ.get('PER_PAGE' , 6))
@@ -36,9 +37,12 @@ class RecipeListViewBase(ListView):
         ctx = super().get_context_data(**kwargs)
         #Paginação
         page_object , pagination_range = make_pagination(self.request, ctx.get('recipes'), PER_PAGES )
-        ctx.update (
-            { 'recipes' : page_object, 'pagination_range' : pagination_range}
-        )
+        html_language = translation.get_language()
+        ctx.update ({ 
+            'recipes' : page_object, 
+            'pagination_range' : pagination_range,
+            'html_language' : html_language,
+        })
         return ctx
 
 class RecipeListViewHome(RecipeListViewBase):
