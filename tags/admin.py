@@ -9,7 +9,7 @@ class TagsAdmin(admin.ModelAdmin):
     search_fields = ['id', 'slug', 'name']
     list_per_page =  10 
     list_editable = ['name']
-    ordering = '-id'
+    ordering = '-id',
     prepopulated_fields = {
-        'slug' : ('name'),
+        'slug' : ('name',),
     }

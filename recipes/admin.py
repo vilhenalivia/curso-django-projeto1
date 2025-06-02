@@ -8,9 +8,6 @@ from tags.models import Tags
 class CategoryAdmin(admin.ModelAdmin):
    pass
 
-class TagInLine(GenericStackedInline):
-   model = Tags
-
 
 @admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):
@@ -24,6 +21,4 @@ class RecipeAdmin(admin.ModelAdmin):
    prepopulated_fields = {
       'slug' : ('title', )
    }
-   inlines = [
-      TagInLine, 
-   ]
+   autocomplete_fields = 'tags', 
