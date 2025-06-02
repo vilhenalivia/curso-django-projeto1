@@ -16,7 +16,7 @@ class Tags(models.Model):
     content_type = models.ForeignKey(ContentType,on_delete=models.CASCADE)
     
     # Representação do id da linha do mode acima
-    object_id = models.CharField()
+    object_id = models.CharField(max_length=255)
 
     # Campo que representa a relação genérica (content_type e object_id) -> Model e Id
     content_object = GenericForeignKey('content_type', 'object_id')

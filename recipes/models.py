@@ -2,7 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User 
 from django.urls import reverse
 from django.utils.text import slugify
+from django.contrib.contenttypes.fields import GenericRelation
+from tags.models import Tags
 # Create your models here.
+
 # Cada modulo representa uma tabela no Banco de dados
 class Category(models.Model):
     name = models.CharField(max_length=65)
@@ -29,6 +32,7 @@ class Recipe(models.Model):
     # -> Se apagar a categoria fica o campo nulo
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, default=None)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    tags = GenericRelation(Tags, related_query_name='recipes')
 
     def __str__(self):
         return self.title

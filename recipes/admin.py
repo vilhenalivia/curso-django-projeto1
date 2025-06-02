@@ -1,11 +1,16 @@
 from django.contrib import admin
 from .models import Category, Recipe
-
+from django.contrib.contenttypes.admin import GenericStackedInline
+from tags.models import Tags
 # Register your models here.
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
    pass
+
+class TagInLine(GenericStackedInline):
+   model = Tags
+
 
 @admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):
@@ -19,3 +24,6 @@ class RecipeAdmin(admin.ModelAdmin):
    prepopulated_fields = {
       'slug' : ('title', )
    }
+   inlines = [
+      TagInLine, 
+   ]
