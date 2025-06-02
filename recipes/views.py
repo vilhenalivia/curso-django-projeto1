@@ -11,6 +11,7 @@ from django.http import JsonResponse
 from django.forms.models import model_to_dict
 from tags.models import Tags
 from django.utils import translation
+from django.utils.translation import gettext as _
 # Create your views here.
 
 PER_PAGES =  int(os.environ.get('PER_PAGE' , 6))
@@ -54,8 +55,9 @@ class RecipeListViewCategory(RecipeListViewBase):
     # Manipulação de contexto
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
+        category_translation = _('Category')
         ctx.update ({
-            'title': f'{ctx.get("recipes")[0].category.name}'
+            'title': f'{ctx.get("recipes")[0].category.name} - {category_translation}'
         })
         return ctx
     
