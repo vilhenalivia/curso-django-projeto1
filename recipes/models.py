@@ -34,7 +34,7 @@ class Recipe(models.Model):
     # -> Se apagar a categoria fica o campo nulo
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, default=None)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    tags = models.ManyToManyField(Tags)
+    tags = models.ManyToManyField(Tags, blank=True , default='')
 
     def __str__(self):
         return self.title
